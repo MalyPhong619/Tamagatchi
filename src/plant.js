@@ -7,7 +7,7 @@ export class Plant {
 
   setLife() {
     setInterval(() => {
-      this.plantLife -= 10;
+      this.plantLife -= 4;
     }, 1000);
   }
 
