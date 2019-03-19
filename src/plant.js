@@ -7,12 +7,12 @@ export class Plant {
 
   setLife() {
     setInterval(() => {
-      this.plantLife -= 5;
+      this.plantLife -= 10;
     }, 1000);
   }
 
   waterPlant() {
-    this.plantLife += 20;
+    this.plantLife += 30;
   }
 
   setHarvest() {
@@ -22,7 +22,7 @@ export class Plant {
   }
 
   plantHarvest() {
-    if (this.harvestLevel >= 60) {
+    if (this.harvestLevel >= 40) {
       this.yield += 1;
       this.harvestLevel = 0;
     }

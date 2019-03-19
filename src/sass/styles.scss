@@ -1,13 +1,29 @@
 .form-container {
-    margin-top: 25vh;
-  background-image: url("./../assets/banner.jpg");
-  height: 22vh;
-  border: 1px dotted black;
+  margin-top: 25vh;
+  background-image: url("./../assets/images/banner.jpg");
+  height: 50vh;
   background-repeat: no-repeat;
+  background-position: center;
 }
-input {
-  height: 25px;
-  width: 200px;
+.input-field {
+  text-align: center;
+  h1{
+    font-family: 'Bowlby One SC', cursive;
+    font-size: 5rem;
+  }
+  input {
+    height: 25px;
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+  }
+}
+
+.animal-gif, .plant-gif{
+  img {
+    height: 200px;
+  }
 }
 
 .container {
@@ -21,10 +37,6 @@ input {
   width: 90%;
 }
 
-.input-field {
-  text-align: center;
-}
-
 .pig, .plant-farm{
   width: 45%;
   margin: 2px;
@@ -33,11 +45,18 @@ input {
   padding-bottom: 10px;
 }
 
+.attributes, .buttonDiv, .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
 .plant-farm{
   .field{
     font-size: 0.6em;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     .plant{
       width: 35%;
       margin: 2.5%;
@@ -46,12 +65,6 @@ input {
       }
     }
   }
-}
-
-.attributes, .buttonDiv, .buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
 }
 
 button {
@@ -65,11 +78,12 @@ button {
 .field .buttons {
   margin: none;
   padding: none;
-  .water-button {
-    background: lightblue;
-  }
   .pick-button {
     background: yellow;
+  }
+  .remove-plant {
+    border: none;
+    width: 40px;
   }
 }
 
@@ -77,16 +91,17 @@ img {
   width: 400px;
   height: auto;
 }
-
 #reset, .remove-plant {
   display: none;
 }
-
 .weather {
-  align-self: flex-end;
   text-align: left;
+  width: 100%;
 }
-
 span {
   color: red;
+}
+#plant-reset {
+  background-color: red;
+  color: white;
 }

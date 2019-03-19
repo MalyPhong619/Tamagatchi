@@ -4,23 +4,29 @@ import $ from 'jquery';
 import './sass/styles.scss';
 import { Animal } from './Tamagotchi';
 import { Plant } from './plant.js';
+import "./assets/images/crop.png";
+import "./assets/images/remove.png";
+import "./assets/images/water-can.png";
 
 $(document).ready(function() {
   let inputAnimal;
   let inputPlant;
   let newAnimal;
+  let inputCity;
+
 
   $(".input-field").submit(function(event) {
     event.preventDefault();
     inputAnimal = $("#animal").val();
     inputPlant = $("#plant").val();
+    inputCity = $("#city").val();
     $(".container").show();
     $(".form-container").hide();
 
     newAnimal = new Animal;
 
     $.ajax({
-      url: `http://api.openweathermap.org/data/2.5/weather?q=Portland,Oregon&appid=${process.env.WEATHER_API}`,
+      url: `http://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${process.env.WEATHER_API}`,
       type: 'GET',
       data: {
         format: 'json'
@@ -31,6 +37,7 @@ $(document).ready(function() {
         $('#farmWind').text(`The wind speed in ${response.name} is ${response.wind.speed}mph`);
       }
     });
+
     $.ajax({
       url: `https://api.giphy.com/v1/gifs/search?api_key=${process.env.API_KEY}&limit=100&rating=G&q=${inputAnimal}&offset=0&lang=en`,
       type: 'GET',
@@ -123,7 +130,7 @@ $(document).ready(function() {
       newPlant.setLife();
       newPlant.setHarvest();
       field.push(newPlant);
-      $(".field").append('<div class="plant" id="plant' + index +'"><img src="./assets/images/crop.png" alt="a plant"><div class="attributes"><h3>Hydration: <span id="waterLevel' + index + '"></span></h3><p id="water-level' + index + '"></p><h3>Ripeness: <span id="harvestLevel' + index + '"></span></h3><p id="harvest-level' + index + '"></p><h3>Harvested: <span id="pickedLevel' + index + '"></span></h3><p class="harvest-level"></p></div><div class="buttons buttons' + index +'"><button class="water-button" id="water' + index +'" type="button" name="button">Water</button><button class="pick-button" id="harvest' + index +'" type="button" name="button">Pick Veggie</button></div><button class="remove-plant" id="remove' + index +'" type="button" name="button">Remove Dead</button></div>')
+      $(".field").append('<div class="plant" id="plant' + index +'"><img src="assets/images/crop.png" alt="a plant"><div class="attributes"><h3>Hydration: <span id="waterLevel' + index + '"></span></h3><p id="water-level' + index + '"></p><h3>Ripeness: <span id="harvestLevel' + index + '"></span></h3><p id="harvest-level' + index + '"></p><h3>Harvested: <span id="pickedLevel' + index + '"></span></h3><p class="harvest-level"></p></div><div class="buttons buttons' + index +'"><img src="assets/images/water-can.png" class="water-button" id="water' + index +'"><button class="pick-button" id="harvest' + index +'" type="button" name="button">Pick Veggie</button></div><img src="assets/images/remove.png" class="remove-plant" id="remove' + index +'" ></div>')
       index++;
 
       let i = -1;
@@ -160,4 +167,8 @@ $(document).ready(function() {
       });
     });
   });
+  $("#plant-reset").click(function() {
+    location.reload();
+  });
+
 });
