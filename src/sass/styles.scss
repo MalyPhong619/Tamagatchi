@@ -1,0 +1,92 @@
+.form-container {
+    margin-top: 25vh;
+  background-image: url("./../assets/banner.jpg");
+  height: 22vh;
+  border: 1px dotted black;
+  background-repeat: no-repeat;
+}
+input {
+  height: 25px;
+  width: 200px;
+}
+
+.container {
+  display: none;
+}
+.contained {
+  display: flex;
+  flex-flow: row wrap;
+  margin: auto;
+  text-align: center;
+  width: 90%;
+}
+
+.input-field {
+  text-align: center;
+}
+
+.pig, .plant-farm{
+  width: 45%;
+  margin: 2px;
+  text-align: center;
+  border: 1px dotted black;
+  padding-bottom: 10px;
+}
+
+.plant-farm{
+  .field{
+    font-size: 0.6em;
+    display: flex;
+    flex-wrap: wrap;
+    .plant{
+      width: 35%;
+      margin: 2.5%;
+      img{
+        width: 40px;
+      }
+    }
+  }
+}
+
+.attributes, .buttonDiv, .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+button {
+  width: 50px;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.field .buttons {
+  margin: none;
+  padding: none;
+  .water-button {
+    background: lightblue;
+  }
+  .pick-button {
+    background: yellow;
+  }
+}
+
+img {
+  width: 400px;
+  height: auto;
+}
+
+#reset, .remove-plant {
+  display: none;
+}
+
+.weather {
+  align-self: flex-end;
+  text-align: left;
+}
+
+span {
+  color: red;
+}

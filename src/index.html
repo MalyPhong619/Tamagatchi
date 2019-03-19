@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tamagotchi</title>
+</head>
+<body>
+  <div class="form-container">
+
+  <form class="input-field">
+    <input type="text" id="animal" placeholder="Type in an animal"></input>
+    <input type="text" id="plant" placeholder="Type in a Plant"></input>
+    <button id="inputSubmit" type="submit" name="button">Search</button>
+  </form>
+</div>
+  <div class="container">
+    <div class="contained">
+
+
+    <div class="pig">
+      <h1 class="oops"></h1>
+      <div class="animal-gif">
+      </div>
+      <div class="animal-farm">
+        <div class="animal">
+          <div class="attributes">
+            <h3>Food Level: <span id="foodLevel"></span></h3>
+            <p class=food-level></p>
+            <h3>Sleep Level: <span id="sleepLevel"></span></h3>
+            <p class=sleep-level></p>
+            <h3>Activity Level: <span id="activityLevel"></span></h3>
+            <p class=activity-level></p>
+          </div>
+        </div>
+        <div class="buttonDiv">
+          <button id="feed" type="button" name="button">Feed</button>
+          <button id="rest" type="button" name="button">Rest</button>
+          <button id="play" type="button" name="button">Play</button>
+        </div>
+        <button id="reset" type="button" name="button">Reset</button>
+      </div>
+    </div>
+
+    <div class="plant-farm">
+        <h1 class="plant-oops"></h1>
+        <div class="plant-gif"></div>
+        <button id="plant-seed" type="button" name="button">Plant Seed</button>
+        <div class="field">
+
+          </div>
+        </div>
+        <button id="plant-reset" type="button" name="button">Reset Field</button>
+      </div>
+
+      <div class="weather">
+      <p id="farmLocation"></p>
+      <p id="farmTemp"></p>
+      <p id="farmWind"></p>
+    </div>
+  </div>
+    </div>
+</body>
+</html>
