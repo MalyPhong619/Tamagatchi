@@ -2,8 +2,9 @@
 // import 'bootstrap/scss/bootstrap.scss';
 import $ from 'jquery';
 import './sass/styles.scss';
-import { Animal } from './Tamagotchi';
-import { Plant } from './plant.js';
+import { Animal } from './tamagotchi';
+import { Plant } from './plant';
+import { WeatherService } from './weather-service';
 import "./assets/images/crop.png";
 import "./assets/images/remove.png";
 import "./assets/images/water-can.png";
@@ -25,6 +26,20 @@ $(document).ready(function() {
 
     newAnimal = new Animal;
 
+    let weatherService = new WeatherService();
+    let promise = weatherService.getWeatherByCity(inputCity);
+
+
+
+    promise.then(function(response) {
+      let body = JSON.parse(response);
+      $("#farmLocation").text(`Your farm location is in ${body.name}`);
+      $('#farmTemp').text(`The temperature in ${body.name} is ${(((body.main.temp-273)*9/5)+32).toFixed()} F`);
+      $('#farmWind').text(`The wind speed in ${body.name} is ${body.wind.speed}mph`);
+    }, function(error){
+    $('.showErrors').text(`There was an error processing your request: ${error.message}`);
+  });
+
 
 
     // $.ajax({
@@ -39,31 +54,6 @@ $(document).ready(function() {
     //     $('#farmWind').text(`The wind speed in ${response.name} is ${response.wind.speed}mph`);
     //   }
     // });
-
-
-    let promise = new Promise(function(resolve, reject) {
-      let request = new XMLHttpRequest();
-      let url = `http://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${process.env.WEATHER_API}`;
-      request.onload(function() {
-        if(this.status === 200) {
-          resolve(request.response);
-        } else {
-          reject(Error(request.statusText));
-        }
-      request.open("GET", url, true);
-      request.send();
-    });
-
-    promise.then(function(response) {
-      let body = JSON.parse(response);
-      $("#farmLocation").text(`Your farm location is in ${response.name}`);
-      $('#farmTemp').text(`The temperature in ${response.name} is ${(((response.main.temp-273)*9/5)+32).toFixed()} F`);
-      $('#farmWind').text(`The wind speed in ${response.name} is ${response.wind.speed}mph`);
-    }, function(error) {
-      $('.showErrors').text(`There was an error processing your request: ${error.message}`);
-    });
-  });
-
 
 
 
@@ -94,6 +84,7 @@ $(document).ready(function() {
     const getElements = function(response) {
       $(".plant-gif").html(`<img src="${response.data[Math.floor(Math.random()*100)].images.original.url}">`);
     }
+
 
     newAnimal.setLevel("foodLevel");
     newAnimal.setLevel("sleepLevel");
