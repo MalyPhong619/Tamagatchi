@@ -25,18 +25,47 @@ $(document).ready(function() {
 
     newAnimal = new Animal;
 
-    $.ajax({
-      url: `http://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${process.env.WEATHER_API}`,
-      type: 'GET',
-      data: {
-        format: 'json'
-      },
-      success: function(response) {
-        $("#farmLocation").text(`Your farm location is in ${response.name}`);
-        $('#farmTemp').text(`The temperature in ${response.name} is ${(((response.main.temp-273)*9/5)+32).toFixed()} F`);
-        $('#farmWind').text(`The wind speed in ${response.name} is ${response.wind.speed}mph`);
-      }
+
+
+    // $.ajax({
+    //   url: `http://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${process.env.WEATHER_API}`,
+    //   type: 'GET',
+    //   data: {
+    //     format: 'json'
+    //   },
+    //   success: function(response) {
+    //     $("#farmLocation").text(`Your farm location is in ${response.name}`);
+    //     $('#farmTemp').text(`The temperature in ${response.name} is ${(((response.main.temp-273)*9/5)+32).toFixed()} F`);
+    //     $('#farmWind').text(`The wind speed in ${response.name} is ${response.wind.speed}mph`);
+    //   }
+    // });
+
+
+    let promise = new Promise(function(resolve, reject) {
+      let request = new XMLHttpRequest();
+      let url = `http://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${process.env.WEATHER_API}`;
+      request.onload(function() {
+        if(this.status === 200) {
+          resolve(request.response);
+        } else {
+          reject(Error(request.statusText));
+        }
+      request.open("GET", url, true);
+      request.send();
     });
+
+    promise.then(function(response) {
+      let body = JSON.parse(response);
+      $("#farmLocation").text(`Your farm location is in ${response.name}`);
+      $('#farmTemp').text(`The temperature in ${response.name} is ${(((response.main.temp-273)*9/5)+32).toFixed()} F`);
+      $('#farmWind').text(`The wind speed in ${response.name} is ${response.wind.speed}mph`);
+    }, function(error) {
+      $('.showErrors').text(`There was an error processing your request: ${error.message}`);
+    });
+  });
+
+
+
 
     $.ajax({
       url: `https://api.giphy.com/v1/gifs/search?api_key=${process.env.API_KEY}&limit=100&rating=G&q=${inputAnimal}&offset=0&lang=en`,
@@ -65,7 +94,6 @@ $(document).ready(function() {
     const getElements = function(response) {
       $(".plant-gif").html(`<img src="${response.data[Math.floor(Math.random()*100)].images.original.url}">`);
     }
-
 
     newAnimal.setLevel("foodLevel");
     newAnimal.setLevel("sleepLevel");
