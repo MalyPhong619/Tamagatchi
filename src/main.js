@@ -15,7 +15,6 @@ $(document).ready(function() {
   let newAnimal;
   let inputCity;
 
-
   $(".input-field").submit(function(event) {
     event.preventDefault();
     inputAnimal = $("#animal").val();
@@ -29,19 +28,15 @@ $(document).ready(function() {
     let weatherService = new WeatherService();
     let promise = weatherService.getWeatherByCity(inputCity);
 
-
-
     promise.then(function(response) {
       let body = JSON.parse(response);
       $("#farmLocation").text(`Your farm location is in ${body.name}`);
       $('#farmTemp').text(`The temperature in ${body.name} is ${(((body.main.temp-273)*9/5)+32).toFixed()} F`);
       $('#farmWind').text(`The wind speed in ${body.name} is ${body.wind.speed}mph`);
     }, function(error){
-    $('.showErrors').text(`There was an error processing your request: ${error.message}`);
-  });
-
-
-
+      $('.showErrors').text(`There was an error processing your request: ${error.message}`);
+    });
+// ----weather API using .ajax
     // $.ajax({
     //   url: `http://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${process.env.WEATHER_API}`,
     //   type: 'GET',
@@ -54,7 +49,6 @@ $(document).ready(function() {
     //     $('#farmWind').text(`The wind speed in ${response.name} is ${response.wind.speed}mph`);
     //   }
     // });
-
 
 
     $.ajax({
@@ -189,5 +183,4 @@ $(document).ready(function() {
   $("#plant-reset").click(function() {
     location.reload();
   });
-
 });
